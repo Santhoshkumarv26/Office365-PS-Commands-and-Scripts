@@ -23,4 +23,4 @@ Get-recipient -filter $a.recipientfilter
 #Get the Distinguisedname of the New Address List using "Get-AddressList" Command.
 Get-Recipient -Filter {AddressListMembership -eq 'CN=BLR Rooms,CN=All Address Lists,CN=Address Lists Container,CN=Configuration,CN=developersk.onmicrosoft.com,CN=ConfigurationUnits,DC=INDPR01A009,DC=PROD,DC=OUTLOOK,DC=COM'}
 
-Output of two above results should be the same. If not ran the "Set-Mailbox" Command with "ApplyMandatoryProperties" against the not listed recipients.
+Output of two above results should be the same. If not run the "Set-Mailbox" Command with "ApplyMandatoryProperties" against the not listed recipients.
