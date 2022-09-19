@@ -1,0 +1,34 @@
+#Creating New Address List Category in Office 365 Cloud Environment
+Pre-Requisites: Name & DisplayName,List of targeted recipients,RecipientFilterQuery.
+Note: Once the Recipient Filter Query is ready, Test it with "Get-Recipient" Command to valid the Query before creating the Address list. Also, Once the New Address list has been created, we need to run "Set-Mailbox" Command with "ApplyMandatoryProperties"  for each of targeted mailbox to make it visible in new address list category.
+After ran the below commands,Our New Address list category is ready to use in the next few minutes.
+
+Get-Recipient -Filter '((Alias -ne $null) -and (CustomAttribute8 -eq "Microsoft_Teams_Room"))'
+New-AddressList -Name "Microsoft Teams Rooms" -DisplayName "Microsoft Teams Rooms" -RecipientFilter '((Alias -ne $null) -and (CustomAttribute8 -eq "Microsoft_Teams_Room"))’
+Set-Mailbox "IN-BLR-ECity-fourth Floor" -ApplyMandatoryProperties
+
+====================================================================================================================================================================
+#Updating the Recipeint Filter Query of the address list(If-Required)
+
+Set-AddressList "Microsoft Teams Rooms" -RecipientFilter '((Alias -ne $null) -and (CustomAttribute9 -eq "Microsoft_Teams_Room"))'
+
+====================================================================================================================================================================
+
+#Verification of Address list members against the Recipient filter Query
+Logic: Compare the O/P of "Get-Recipient" along with the Filter Query Vs AddressList Membership
+
+Get-Recipient -Filter '((Alias -ne $null) -and (CustomAttribute8 -eq "Microsoft_Teams_Room"))'	
+Get-recipient -filter $a.recipientfilter
+
+#Get the Distinguisedname of the New Address List using "Get-AddressList" Command.
+Get-Recipient -Filter {AddressListMembership -eq 'CN=BLR Rooms,CN=All Address Lists,CN=Address Lists Container,CN=Configuration,CN=developersk.onmicrosoft.com,CN=ConfigurationUnits,DC=INDPR01A009,DC=PROD,DC=OUTLOOK,DC=COM'}
+
+Output of two above results should be the same. If not ran the "Set-Mailbox" Command with "ApplyMandatoryProperties" against the not listed recipients.
+
+
+
+
+
+
+
+
